@@ -1,2 +1,179 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700|Open+Sans|Playfair+Display');
 
+/*
+
+1. NFE Square
+
+*/
+
+
+/* 1. NFE Square*/
+
+.nfe-square-container {
+  box-sizing: border-box;
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  height: 600px;
+  padding: 4px;
+}
+
+.nfe-square {
+
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  float: left;
+  width: 50%;
+  height: 50%;
+  padding: 2px;
+}
+
+.nfe-square-inner {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  float: left;
+  width: 100%;
+  height: 100%;
+}
+
+.nfe-square-inner a {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+}
+
+.nfe-square-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgb(0,0,0);
+  z-index: 1;
+  opacity: 0.6;
+}
+
+.nfe-square-bg {
+  width: 100%;
+  height: 100%;
+  transform: scale(1.0);
+  transition-duration: 0.5s;
+  overflow: hidden;
+  background-position: center; 
+  background-size: cover;
+}
+
+.nfe-square:hover .nfe-square-bg {
+  transform: scale(1.1);
+  transition-duration: 0.5s;
+  overflow: hidden;
+}
+
+.nfe-square:hover .nfe-square-overlay {
+  opacity: 0.4;
+  transition-duration: 0.5s;
+}
+
+.nfe-square-bg IMG{
+  width: 100%;
+  height: 100%;
+}
+
+.nfe-square-logo IMG {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+  height: auto;
+  z-index: 8;
+}
+
+@media screen and (max-width: 640px) {
+
+.nfe-square-container {
+  box-sizing: border-box;
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  height: auto;
+  padding: 0px;
+}
+
+.nfe-square {
+
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  height: 200px;
+  padding: 2px;
+}
+
+.nfe-square-inner {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  float: left;
+  width: 100%;
+  height: 100%;
+}
+
+.nfe-square-inner a {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+}
+
+.nfe-square-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgb(10,10,10);
+  z-index: 1;
+  opacity: 0.6;
+}
+
+.nfe-square-bg {
+  width: 100%;
+  height: 100%;
+  transform: scale(1.0);
+  transition-duration: 0.5s;
+  overflow: hidden;
+}
+
+.nfe-square:hover .nfe-square-bg {
+  transform: scale(1.1);
+  transition-duration: 0.5s;
+  overflow: hidden;
+}
+
+.nfe-square:hover .nfe-square-overlay {
+  opacity: 0.4;
+  transition-duration: 0.5s;
+}
+
+.nfe-square-bg IMG{
+  width: 100%;
+  height: 100%;
+}
+
+.nfe-square-logo IMG {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+  height: auto;
+  z-index: 8;
+}
+
+}

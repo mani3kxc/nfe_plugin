@@ -46,7 +46,7 @@ if(!class_exists('New_Fancy_Elements')) {
 
 		public function New_Fancy_Elements()
 		{
-			$this->SFS_Slider_Init();			
+			$this->New_Fancy_Elements_Init();			
 		}
 
 		public function New_Fancy_Elements_Init()
@@ -59,7 +59,7 @@ if(!class_exists('New_Fancy_Elements')) {
 			add_action('wp_enqueue_scripts', array(&$this, 'nfe_add_scripts_and_styles') );
 
 			//1.9
-			add_action('admin_menu', array(&$this, 'sfs_admin_menus') ); 
+			add_action('admin_menu', array(&$this, 'nfe_admin_menus') ); 
 			
 		}
 
@@ -67,19 +67,80 @@ if(!class_exists('New_Fancy_Elements')) {
 		/* !2. SHORTCODES */
 
 		// 2.1
-		public function sfs_register_shortcodes() {
+		public function nfe_register_shortcodes() {
+		  add_shortcode( 'nfe_square_container', array(&$this, 'nfe_square_container' ));
 		  add_shortcode( 'nfe_square', array(&$this, 'nfe_square' ));
+		  add_shortcode( 'nfe_square_bg', array(&$this, 'nfe_square_bg' ));
+		  add_shortcode( 'nfe_square_logo', array(&$this, 'nfe_square_logo' ));
 		}
 
 		// 2.2
-		public function nfe_square( $args, $content="") {
+		public function nfe_square_container( $atts, $content="") {
 		  
 		  // setup our output variable - the form html 
 		  $output = '
 
-				<div class="itx-slider-wrap">
-				<div class="itx-slider">
-		  		<div class="sfs-container"><div class="sfs-overlay"></div><ul>';
+				<div class="nfe-square-container">
+				'.do_shortcode( $content, false ).'
+		  		</div>';
+		  
+		  return $output;
+		  
+		}
+
+		public function nfe_square( $atts, $content="") {
+		  
+		$a = shortcode_atts( array(
+        'position' => 'tl',
+        'href' => 0       
+    	), $atts );
+
+
+		  // setup our output variable - the form html 
+		  $output = '
+
+				<div class="nfe-square nfe-square-'.$a['position'].'">
+					<div class="nfe-square-inner">';
+					if($a['href']) $output .= '<A href="' . $a['href'] .'"></A>';
+				
+
+				
+
+				$output .= '<div class="nfe-square-overlay"></div>
+				'.do_shortcode( $content, false ).'
+				</div></div>';
+		  
+		  return $output;
+		  
+		}
+
+		public function nfe_square_bg( $atts, $content="") {
+		  
+			preg_match('/src="([^"]+)/i',$content, $image_src);
+
+  			// remove opening 'src=' tag, can`t get the regex right
+  			$image_src = str_ireplace( 'src="', '',  $image_src); 
+
+		  	// setup our output variable - the form html 
+		  	$output = '
+
+				<div class="nfe-square-bg" style="background-image: url(\''.$image_src[0].'\');">
+		  		</div>';
+		  
+		  		
+
+		  return $output;
+		  
+		}
+
+		public function nfe_square_logo( $atts, $content="") {
+		  
+		  // setup our output variable - the form html 
+		  $output = '
+
+				<div class="nfe-square-logo">
+				'.$content.'				
+		  		</div>';
 		  
 		  return $output;
 		  
@@ -130,19 +191,11 @@ if(!class_exists('New_Fancy_Elements')) {
 
 		}
 
-		function sfs_admin_menus() {
+		function nfe_admin_menus() {
 
-			$top_menu_item = 'sfs_dashboard_admin_page';
+			$top_menu_item = 'nfe_dashboard_admin_page';
 
-			add_menu_page( '', "New Fancy Elements Plugin", 'manage_options', 'nfe_dashboard_admin_page', array(&$this,'nfe_dashboard_admin_page'), 'dashicons-images-alt2');
-
-			add_submenu_page( $top_menu_item, "Dashboard", "Dashboard", 'manage_options', 'sfs_dashboard_admin_page', array(&$this,'sfs_dashboard_admin_page') );
-
-			add_submenu_page( $top_menu_item, "Slides", "Slides", 'manage_options', 'edit.php?post_type=sfs_slide' );
-			
-			add_submenu_page( $top_menu_item, "Slider List", "Slider List", 'manage_options', 'edit.php?post_type=sfs_slider' );
-
-			add_submenu_page( $top_menu_item, "Settings", "Settings", 'manage_options', 'sfs_settings_admin_page', array(&$this,'sfs_settings_admin_page') );
+			add_menu_page( '', "New Fancy Elements Plugin", 'manage_options', 'nfe_dashboard_admin_page', array(&$this,'nfe_dashboard_admin_page'), 'dashicons-images-alt2');			
 
 		}
 
